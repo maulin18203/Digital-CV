@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+
+    <style>
+        /* Import Google Fonts: Lato */
+        @import url('https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700;900&display=swap');
+
+        :root {
+            --primary-color: #0f172a;
+            /* Dark Navy */
+            --accent-color: #0ea5e9;
+            /* Bright Teal */
+            --sidebar-bg: #f1f5f9;
+            --text-color: #334155;
+            --white: #ffffff;
+        }
+
+        body {
+            background-color: #e2e8f0;
+            font-family: 'Lato', sans-serif;
+            font-size: 9.5pt;
+            color: var(--text-color);
+            margin: 0;
+            line-height: 1.4;
+        }
+
+        .page-container {
+            width: 210mm;
+            min-height: 297mm;
+            margin: 20px auto;
+            background-color: var(--white);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            position: relative;
+            display: grid;
+            grid-template-columns: 32% 68%;
+        }
+
+        /* --- PRINT BUTTON --- */
+        .print-button {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 10px 20px;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+            z-index: 1000;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+        }
+
+        .print-button:hover {
+            background-color: var(--accent-color);
+        }
+
+        /* --- SIDEBAR --- */
+        .sidebar {
+            background-color: var(--primary-color);
+            color: #cbd5e1;
+            padding: 30px 20px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .sidebar h2 {
+            color: var(--white);
+            font-size: 1.1em;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border-bottom: 2px solid var(--accent-color);
+            padding-bottom: 5px;
+            margin-top: 25px;
+            margin-bottom: 15px;
+        }
+
+        .sidebar h2:first-of-type {
+            margin-top: 0;
+        }
+
+        /* Contact Info Styling */
+        .contact-info {
+            margin-bottom: 25px;
+        }
+
+        .contact-info div {
+            display: flex;
+            align-items: center;
+            margin-bottom: 12px;
+            font-size: 0.95em;
+        }
+
+        .contact-info i {
+            color: var(--accent-color);
+            width: 25px;
+            text-align: center;
+            margin-right: 10px;
+        }
+
+        .contact-info a {
+            color: inherit;
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .contact-info a:hover {
+            color: var(--white);
+        }
+
+        /* Skills Styling */
+        .skill-group {
+            margin-bottom: 18px;
+        }
+
+        .skill-group h3 {
+            color: var(--accent-color);
+            font-size: 0.95em;
+            margin: 0 0 5px 0;
+        }
+
+        .skill-group ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .skill-group li {
+            margin-bottom: 3px;
+            font-size: 0.9em;
+        }
+
+        /* Link styling for Certifications Header */
+        .sidebar-link-header {
+            text-decoration: none;
+            color: var(--white);
+            display: block;
+        }
+
+        .sidebar-link-header:hover {
+            color: var(--accent-color);
+        }
+
+        /* --- MAIN CONTENT --- */
+        .main-content {
+            padding: 30px 30px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .header-name {
+            margin-bottom: 20px;
+            border-bottom: 3px solid var(--primary-color);
+            padding-bottom: 10px;
+        }
+
+        .header-name a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .header-name h1 {
+            font-size: 2.8em;
+            margin: 0;
+            color: var(--primary-color);
+            font-weight: 900;
+            line-height: 1;
+            text-transform: uppercase;
+        }
+
+        .header-name p {
+            font-size: 1.1em;
+            color: var(--accent-color);
+            margin: 5px 0 0 0;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+        }
+
+        .section-title {
+            font-size: 1.2em;
+            color: var(--primary-color);
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-top: 15px;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+        }
+
+        .section-title::before {
+            content: '';
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            background-color: var(--accent-color);
+            margin-right: 10px;
+        }
+
+        .section-link {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .section-link:hover {
+            color: var(--accent-color);
+        }
+
+        .summary {
+            font-size: 0.95em;
+            margin-bottom: 15px;
+            text-align: justify;
+        }
+
+        .item-wrapper {
+            margin-bottom: 12px;
+        }
+
+        .content-link {
+            text-decoration: none;
+            color: inherit;
+            display: block;
+        }
+
+        .content-link:hover .role {
+            color: var(--accent-color);
+        }
+
+        .content-link:hover .company {
+            text-decoration: underline;
+        }
+
+        .item-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+        }
+
+        .role {
+            font-size: 1.05em;
+            font-weight: 700;
+            color: #1e293b;
+        }
+
+        .company {
+            font-size: 0.9em;
+            color: var(--accent-color);
+            font-weight: 600;
+        }
+
+        .edu-details {
+            font-size: 0.9em;
+            color: #555;
+            margin-top: 2px;
+            font-weight: 500;
+        }
+
+        .date {
+            font-size: 0.85em;
+            color: #64748b;
+            font-style: italic;
+        }
+
+        ul.bullet-list {
+            padding-left: 15px;
+            margin: 5px 0 0 0;
+        }
+
+        ul.bullet-list li {
+            margin-bottom: 3px;
+            position: relative;
+        }
+
+        ul.bullet-list li::marker {
+            color: var(--accent-color);
+        }
+
+        .tech-tag {
+            font-size: 0.75em;
+            background-color: #f1f5f9;
+            color: var(--primary-color);
+            padding: 2px 6px;
+            border-radius: 4px;
+            border: 1px solid #cbd5e1;
+            margin-top: 4px;
+            display: inline-block;
+            font-weight: 600;
+        }
+
+        /* --- PRINT MEDIA QUERY --- */
+        @media print {
+            body {
+                background: none;
+                -webkit-print-color-adjust: exact;
+            }
+
+            .page-container {
+                width: 100%;
+                height: 100%;
+                margin: 0;
+                box-shadow: none;
+                display: grid;
+            }
+
+            .print-button {
+                display: none;
+            }
+
+            @page {
+                size: A4;
+                margin: 0;
+            }
+        }
+    </style>
+    <title>Maulin Patel CV</title>
+</head>
+
+<body>
+
+    <button class="print-button" onclick="window.print()">🖨️ Print PDF</button>
+
+    <div class="page-container">
+
+        <aside class="sidebar">
+            <div class="contact-info">
+                <div>
+                    <i class="fas fa-phone"></i>
+                    <a href="tel:+919909618203">+91 99096 18203</a>
+                </div>
+                <div>
+                    <i class="fas fa-envelope"></i>
+                    <a href="mailto:maulin18203@gmail.com">maulin18203@gmail.com</a>
+                </div>
+                <div>
+                    <i class="fas fa-map-marker-alt"></i>
+                    <a href="https://maps.app.goo.gl/2QcEssWGzz2yuE1v7" target="_blank">Himmatnagar</a>
+                </div>
+                <div>
+                    <i class="fab fa-linkedin"></i>
+                    <a href="https://www.linkedin.com/in/maulin18203/" target="_blank">LinkedIn</a>
+                </div>
+                <div>
+                    <i class="fab fa-github"></i>
+                    <a href="https://github.com/maulin18203" target="_blank">GitHub</a>
+                </div>
+            </div>
+
+            <h2>Skills</h2>
+
+            <div class="skill-group">
+                <h3>Teaching Skills</h3>
+                <ul>
+                    <li>Smart Classroom Teaching</li>
+                    <li>Technical Mentorship</li>
+                    <li>Curriculum Development</li>
+                    <li>Lab Management</li>
+                </ul>
+            </div>
+
+            <div class="skill-group">
+                <h3>Cyber Skills</h3>
+                <ul>
+                    <li>Ethical Hacking</li>
+                    <li>Vulnerability Assessment</li>
+                    <li>Kali Linux / Shell Scripting</li>
+                    <li>Penetration Testing</li>
+                </ul>
+            </div>
+
+            <div class="skill-group">
+                <h3>Software Skills</h3>
+                <ul>
+                    <li><strong>Flutter & Dart</strong></li>
+                    <li>Python (Flask/Automation)</li>
+                    <li>C++ (OOPs)</li>
+                    <li>Secure API Integration</li>
+                </ul>
+            </div>
+
+            <div class="skill-group">
+                <h3>Hardware Skills</h3>
+                <ul>
+                    <li>Raspberry Pi / IoT</li>
+                    <li>ESP32 / NodeMCU</li>
+                    <li>Computer Assembly</li>
+                    <li>Network Hardware</li>
+                </ul>
+            </div>
+
+            <h2>
+                <a href="https://drive.google.com/drive/folders/1koHtV0onJZY0DO4AWEb5MK9YnToovRSE?usp=sharing"
+                    target="_blank" class="sidebar-link-header">
+                    Certifications <i class="fas fa-external-link-alt"
+                        style="font-size: 0.7em; vertical-align: middle;"></i>
+                </a>
+            </h2>
+            <ul style="list-style: none; padding: 0; font-size: 0.9em;">
+                <li style="margin-bottom:8px">📜 <strong>Cybersecurity & Ethical Hacking</strong></li>
+                <li style="margin-bottom:8px">📜 <strong>Flutter App Development</strong></li>
+                <li style="margin-bottom:8px">📜 <strong>Python Programming</strong></li>
+                <li style="margin-bottom:8px">📜 <strong>Cyber Bullying Awareness</strong></li>
+            </ul>
+
+            <h2>Languages</h2>
+            <ul style="list-style: none; padding: 0; font-size: 0.9em;">
+                <li>English (Professional)</li>
+                <li>Hindi (Fluent)</li>
+                <li>Gujarati (Native)</li>
+            </ul>
+        </aside>
+
+        <main class="main-content">
+
+            <div class="header-name">
+                <a href="https://maulin-cv.netlify.app/" target="_blank">
+                    <h1>Maulin Patel</h1>
+                    <p>Software Developer • Educator • Security Analyst</p>
+                </a>
+            </div>
+
+            <p class="summary">
+                Versatile technology professional bridging the gap between <strong>Software Engineering</strong> and
+                <strong>Cybersecurity</strong>. Expert in building secure mobile applications using
+                <strong>Flutter</strong> and developing custom Linux environments. Proven track record as a
+                <strong>Technical Trainer</strong>, mentoring university students in secure coding practices, Python
+                automation, and ethical hacking methodologies.
+            </p>
+
+            <div class="section-title">Experience</div>
+            <div class="item-wrapper">
+                <a href="https://drive.google.com/drive/folders/1iEvFR5oDBAjTOrWBm54pBYJR0J72fMMf?usp=sharing"
+                    target="_blank" class="content-link">
+                    <div class="item-header">
+                        <div>
+                            <div class="role">Technical Skill Trainer</div>
+                            <div class="company">Sankalchand Patel Center of Excellence (SPU)</div>
+                        </div>
+                        <div class="date">Jun 2025 – Dec 2025</div>
+                    </div>
+                </a>
+                <ul class="bullet-list">
+                    <li><strong>Security & Dev Education:</strong> Designed curriculum for "Secure Software
+                        Development," teaching students to identify vulnerabilities in Python and Dart code.</li>
+                    <li><strong>Mobile Mentorship:</strong> Guided 50+ students in building full-stack Flutter
+                        applications, ensuring implementation of secure authentication.</li>
+                    <li><strong>Lab Management:</strong> Conducted hands-on workshops on <strong>Kali Linux</strong>,
+                        network packet analysis (Wireshark), and IoT security.</li>
+                </ul>
+            </div>
+
+            <div class="section-title">
+                <a href="http://github.com/maulin18203" target="_blank" class="section-link">
+                    Projects <i class="fas fa-link" style="font-size: 0.7em; vertical-align: middle;"></i>
+                </a>
+            </div>
+
+            <div class="item-wrapper">
+                <div class="item-header">
+                    <div class="role">Sosent OS (Custom Security Distro)</div>
+                </div>
+                <div>Designed a custom Linux operating system based on Ubuntu/Kali aimed at lightweight security
+                    testing.</div>
+                <div class="tech-tag">Linux Kernel</div>
+                <div class="tech-tag">Bash Scripting</div>
+                <div class="tech-tag">OS Customization</div>
+            </div>
+
+            <div class="item-wrapper">
+                <div class="item-header">
+                    <div class="role">Secure Student Portal App</div>
+                </div>
+                <div>A cross-platform app for university management with role-based access control and encrypted
+                    database.</div>
+                <div class="tech-tag">Flutter</div>
+                <div class="tech-tag">Dart</div>
+                <div class="tech-tag">Firebase Auth</div>
+            </div>
+
+
+            <div class="section-title">Education</div>
+
+            <div class="item-wrapper">
+                <a href="https://drive.google.com/drive/folders/1GCDj2qfQ9u3XnghVI2FCm2isSO1SW8z3?usp=sharing"
+                    target="_blank" class="content-link">
+                    <div class="item-header">
+                        <div class="role">Master of Computer Applications (MCA)</div>
+                        <div class="date">2025</div>
+                    </div>
+                    <div class="company">Sankalchand Patel University | 85.4%</div>
+                </a>
+            </div>
+
+            <div class="item-wrapper">
+                <a href="https://drive.google.com/drive/folders/1Gfy8gqkQnTJqyX6HTo_wDP9l8sH9_XuU?usp=sharing"
+                    target="_blank" class="content-link">
+                    <div class="item-header">
+                        <div class="role">Bachelor of Computer Applications (BCA)</div>
+                        <div class="date">2023</div>
+                    </div>
+                    <div class="company">HNGU University | 89%</div>
+                </a>
+            </div>
+
+            <div class="item-wrapper">
+                <a href="https://drive.google.com/drive/folders/1kCq4YgPlluRh74qVFv2A9M1BsSoZJcvb?usp=sharing"
+                    target="_blank" class="content-link">
+                    <div class="item-header">
+                        <div class="role" style="font-size: 1em;">HSC (12th Commerce) - GSEB</div>
+                        <div class="date">Mar 2020</div>
+                    </div>
+                    <div class="company" style="font-size: 0.85em;">N.&.K.PANDYA HIMAT HIGH SCHOOL NO-2</div>
+                    <div class="edu-details"><strong>54.4%</strong></div>
+                </a>
+            </div>
+
+            <div class="item-wrapper">
+                <a href="https://drive.google.com/drive/folders/1kCq4YgPlluRh74qVFv2A9M1BsSoZJcvb?usp=sharing"
+                    target="_blank" class="content-link">
+                    <div class="item-header">
+                        <div class="role" style="font-size: 1em;">SSC (10th) - GSEB</div>
+                        <div class="date">Mar 2018</div>
+                    </div>
+                    <div class="company" style="font-size: 0.85em;">N.&.K.PANDYA HIMAT HIGH SCHOOL NO-2</div>
+                    <div class="edu-details">Percentile: 52%</div>
+                </a>
+            </div>
+
+            <div class="section-title">Achievements</div>
+            <ul class="bullet-list">
+                <li><strong>Excellence in IoT Development</strong> Award at SPU University.</li>
+                <li>Recognized for conducting <strong>Cybersecurity Awareness Seminars</strong>.</li>
+            </ul>
+
+        </main>
+    </div>
+
+</body>
+
+</html>
